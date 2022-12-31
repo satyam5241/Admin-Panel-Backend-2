@@ -1,23 +1,39 @@
-import express from "express";
-import { imageUploader } from "../middlewares/imageSaver";
-import { getAllContactUs, addContactUs } from "../controllers/ContactUs";
-import {
+const express = require("express");
+const multer = require("multer");
+const { getAllContactUs, addContactUs } = require("../controllers/ContactUs");
+const {
   getAllBrands,
   getBrandById,
   addBrand,
   updateBrand,
   deleteBrand,
-} from "../controllers/Brands";
-import {
+} = require("../controllers/Brands");
+const {
   getAllSpeakers,
   getSpeakerById,
   addSpeaker,
   updateSpeaker,
   deleteSpeaker,
-} from "../controllers/Speakers";
-const router = express.Router();
+} = require("../controllers/Speakers");
 
+const router = express.Router();
 const imageContainer = "images";
+
+let imageStorage = (photosFolder) => {
+  return multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, photosFolder);
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+};
+const imageUploader = (imagesFolder) => {
+  return multer({
+    storage: imageStorage(imagesFolder),
+  });
+};
 
 router.get("/getAllBrands", getAllBrands);
 router.get("/getBrandById?:id", getBrandById);
@@ -38,4 +54,4 @@ router.delete("/deleteSpeaker", deleteSpeaker);
 router.get("/getAllContactUs", getAllContactUs);
 router.post("/addContactUs", addContactUs);
 
-export default router;
+module.exports = router;

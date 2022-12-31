@@ -1,6 +1,6 @@
-import { query } from "../../database";
+const { query } = require("../database/database.js");
 
-export const getAllSpeakersQuery = async () => {
+exports.getAllSpeakersQuery = async () => {
   const data = await query(`SELECT * FROM speakers`);
 
   return {
@@ -8,7 +8,7 @@ export const getAllSpeakersQuery = async () => {
   };
 };
 
-export const getSpeakerByIdQuery = async (id) => {
+exports.getSpeakerByIdQuery = async (id) => {
   const data = await query(`SELECT * FROM speakers WHERE id=${id}`);
 
   return {
@@ -16,7 +16,7 @@ export const getSpeakerByIdQuery = async (id) => {
   };
 };
 
-export const addSpeakerQuery = async (data, path) => {
+exports.addSpeakerQuery = async (data, path) => {
   const result = await query(
     `INSERT INTO speakers(image, name) VALUES('${path}', '${data.name}')`
   );
@@ -31,7 +31,7 @@ export const addSpeakerQuery = async (data, path) => {
   return { message, code };
 };
 
-export const updateSpeakerQuery = async (data, path) => {
+exports.updateSpeakerQuery = async (data, path) => {
   const result = await query(
     `UPDATE speakers SET image="${path}", name="${data.name}" WHERE id=${data.id}`
   );
@@ -46,7 +46,7 @@ export const updateSpeakerQuery = async (data, path) => {
   return { message, code };
 };
 
-export const deleteSpeakerQuery = async (id) => {
+exports.deleteSpeakerQuery = async (id) => {
   const result = await query(`DELETE FROM speakers WHERE id=${id}`);
   let message = "Something went wrong when deleting speaker";
 

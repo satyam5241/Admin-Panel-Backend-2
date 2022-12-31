@@ -1,10 +1,10 @@
-import {
+const {
   getAllContactUsQuery,
   addContactUsQuery,
-} from "../../models/ContactUs";
-import CustomErrorHandler from "../../service/CustomErrorHandler";
+} = require("../models/ContactUs.js");
+const CustomErrorHandler = require("../service/CustomErrorHandler");
 
-export const getAllContactUs = async (req, res, next) => {
+exports.getAllContactUs = async (req, res, next) => {
   try {
     let data = await getAllContactUsQuery();
     if (!data) {
@@ -16,7 +16,7 @@ export const getAllContactUs = async (req, res, next) => {
   }
 };
 
-export const addContactUs = async (req, res, next) => {
+exports.addContactUs = async (req, res, next) => {
   try {
     let data = await addContactUsQuery(req.body);
     if (!data) {

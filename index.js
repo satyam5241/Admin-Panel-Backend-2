@@ -1,20 +1,11 @@
-import express from "express";
-import routes from "./routes";
-import errorHandler from "./middlewares/errorHandler";
-import cors from "cors";
-import bodyParser from "body-parser";
-import path from "path";
+const express = require("express");
+const routes = require("./routes/routes.js");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT;
-
-app.use(express.json());
-app.use(cors());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
 
 const allowedExt = [
   ".js",
@@ -35,6 +26,14 @@ app.use(express.static(__dirname + "./build"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
+app.use(express.json());
+app.use(cors());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
 // for parsing application/json
 app.use(bodyParser.json());
 
@@ -45,11 +44,11 @@ app.use(express.static("public"));
 app.use("/images", express.static("images"));
 
 app.use("/api", routes);
-app.use("/", (req, res) => {
-  res.send(
-    `You have requested to connect the wrong API, Please check your API Url and try again.`
-  );
-});
+// app.use("/", (req, res) => {
+//   res.send(
+//     `You have requested to connect the wrong API, Please check your API Url and try again.`
+//   );
+// });
 
 const html = "./build/";
 app.get("*", function (req, res, next) {
@@ -62,7 +61,6 @@ app.get("*", function (req, res, next) {
   }
 });
 
-app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Example app listening at Port: ${port}`);
 });

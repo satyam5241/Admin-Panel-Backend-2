@@ -1,7 +1,7 @@
-import mysql from "mysql2/promise";
-import { config } from "../config";
+const mysql = require("mysql2/promise");
+const { config } = require("../config/config.js");
 
-export const query = async (sql, params) => {
+exports.query = async (sql, params) => {
   const connection = await mysql.createConnection(config.db);
   const [results] = await connection.execute(sql, params);
 

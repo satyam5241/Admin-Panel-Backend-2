@@ -1,15 +1,15 @@
-import {
-  getAllSpeakersQuery,
-  getSpeakerByIdQuery,
-  addSpeakerQuery,
-  updateSpeakerQuery,
-  deleteSpeakerQuery,
-} from "../../models/Speakers";
-import CustomErrorHandler from "../../service/CustomErrorHandler";
+const {
+  getAllBrandsQuery,
+  getBrandByIdQuery,
+  addBrandQuery,
+  updateBrandQuery,
+  deleteBrandQuery,
+} = require("../models/Brands.js");
+const CustomErrorHandler = require("../service/CustomErrorHandler");
 
-export const getAllSpeakers = async (req, res, next) => {
+exports.getAllBrands = async (req, res, next) => {
   try {
-    let data = await getAllSpeakersQuery();
+    let data = await getAllBrandsQuery();
     if (!data) {
       return next(CustomErrorHandler.notFound());
     }
@@ -19,9 +19,9 @@ export const getAllSpeakers = async (req, res, next) => {
   }
 };
 
-export const getSpeakerById = async (req, res, next) => {
+exports.getBrandById = async (req, res, next) => {
   try {
-    let data = await getSpeakerByIdQuery(req.query.id);
+    let data = await getBrandByIdQuery(req.query.id);
     if (!data) {
       return next(CustomErrorHandler.notFound());
     }
@@ -31,9 +31,9 @@ export const getSpeakerById = async (req, res, next) => {
   }
 };
 
-export const addSpeaker = async (req, res, next) => {
+exports.addBrand = async (req, res, next) => {
   try {
-    let data = await addSpeakerQuery(req.body, req.files[0].path);
+    let data = await addBrandQuery(req.body, req.files[0].path);
 
     if (!data) {
       return next(CustomErrorHandler.wrongCredentials());
@@ -44,10 +44,10 @@ export const addSpeaker = async (req, res, next) => {
   }
 };
 
-export const updateSpeaker = async (req, res, next) => {
+exports.updateBrand = async (req, res, next) => {
   if (req.files.length) {
     try {
-      let data = await updateSpeakerQuery(req.body, req.files[0].path);
+      let data = await updateBrandQuery(req.body, req.files[0].path);
 
       if (!data) {
         return next(CustomErrorHandler.wrongCredentials());
@@ -58,7 +58,7 @@ export const updateSpeaker = async (req, res, next) => {
     }
   } else {
     try {
-      let data = await updateSpeakerQuery(req.body, req.body.image);
+      let data = await updateBrandQuery(req.body, req.body.image);
 
       if (!data) {
         return next(CustomErrorHandler.wrongCredentials());
@@ -70,9 +70,9 @@ export const updateSpeaker = async (req, res, next) => {
   }
 };
 
-export const deleteSpeaker = async (req, res, next) => {
+exports.deleteBrand = async (req, res, next) => {
   try {
-    let data = await deleteSpeakerQuery(req.query.id);
+    let data = await deleteBrandQuery(req.query.id);
     res.json(data);
   } catch (err) {
     next(err);

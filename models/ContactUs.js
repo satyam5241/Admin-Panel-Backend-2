@@ -1,6 +1,6 @@
-import { query } from "../../database";
+const { query } = require("../database/database.js");
 
-export const getAllContactUsQuery = async () => {
+exports.getAllContactUsQuery = async () => {
   const data = await query(`SELECT * FROM contactus`);
 
   return {
@@ -8,7 +8,7 @@ export const getAllContactUsQuery = async () => {
   };
 };
 
-export const addContactUsQuery = async (data) => {
+exports.addContactUsQuery = async (data) => {
   const result = await query(
     `INSERT INTO contactus(name, email, phone, message) VALUES('${data.name}', '${data.email}', '${data.phone}', '${data.message}')`
   );

@@ -1,6 +1,6 @@
-import { query } from "../../database";
+const { query } = require("../database/database.js");
 
-export const getAllBrandsQuery = async () => {
+exports.getAllBrandsQuery = async () => {
   const data = await query(`SELECT * FROM brands`);
 
   return {
@@ -8,7 +8,7 @@ export const getAllBrandsQuery = async () => {
   };
 };
 
-export const getBrandByIdQuery = async (id) => {
+exports.getBrandByIdQuery = async (id) => {
   const data = await query(`SELECT * FROM brands WHERE id=${id}`);
 
   return {
@@ -16,7 +16,7 @@ export const getBrandByIdQuery = async (id) => {
   };
 };
 
-export const addBrandQuery = async (data, path) => {
+exports.addBrandQuery = async (data, path) => {
   const result = await query(
     `INSERT INTO brands(image, name) VALUES('${path}', '${data.name}')`
   );
@@ -31,7 +31,7 @@ export const addBrandQuery = async (data, path) => {
   return { message, code };
 };
 
-export const updateBrandQuery = async (data, path) => {
+exports.updateBrandQuery = async (data, path) => {
   const result = await query(
     `UPDATE brands SET image="${path}", name="${data.name}" WHERE id=${data.id}`
   );
@@ -47,7 +47,7 @@ export const updateBrandQuery = async (data, path) => {
   return { message, code };
 };
 
-export const deleteBrandQuery = async (id) => {
+exports.deleteBrandQuery = async (id) => {
   const result = await query(`DELETE FROM brands WHERE id=${id}`);
 
   let message = "Something went wrong when deleting brand";

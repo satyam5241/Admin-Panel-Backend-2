@@ -1,0 +1,21 @@
+const mysql = require("mysql");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
+
+const { HOST, USER, PASSWORD, DATABASE } = process.env;
+exports.query = async (sql) => {
+try{
+
+  const connection = await mysql.createConnection({
+    host: HOST,
+    user: USER,
+    password: PASSWORD,
+    database: DATABASE,
+  });
+  const [results] = await connection.query(sql);
+console.log(results)
+  return results;
+}catch(err){
+consol.log(err)
+return []
+}}

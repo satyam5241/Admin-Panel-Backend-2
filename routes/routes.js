@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const { getAllContactUs, addContactUs } = require("../controllers/ContactUs");
+const { getAllRegister, addRegister } = require("../controllers/Register");
 const {
   getAllBrands,
   getBrandById,
@@ -8,6 +9,13 @@ const {
   updateBrand,
   deleteBrand,
 } = require("../controllers/Brands");
+const {
+  getAllSchedules,
+  getScheduleById,
+  addSchedule,
+  updateSchedule,
+  deleteSchedule,
+} = require("../controllers/Schedule");
 const {
   getAllSpeakers,
   getSpeakerById,
@@ -41,6 +49,16 @@ router.post("/addBrand", imageUploader(imageContainer).any(), addBrand);
 router.put("/updateBrand", imageUploader(imageContainer).any(), updateBrand);
 router.delete("/deleteBrand?:id", deleteBrand);
 
+router.get("/getAllSchedules", getAllSchedules);
+router.get("/getScheduleById?:id", getScheduleById);
+router.post("/addSchedule", imageUploader(imageContainer).any(), addSchedule);
+router.put(
+  "/updateSchedule",
+  imageUploader(imageContainer).any(),
+  updateSchedule
+);
+router.delete("/deleteSchedule?:id", deleteSchedule);
+
 router.get("/getAllSpeakers", getAllSpeakers);
 router.get("/getSpeakerById?:id", getSpeakerById);
 router.post("/addSpeaker", imageUploader(imageContainer).any(), addSpeaker);
@@ -53,5 +71,8 @@ router.delete("/deleteSpeaker", deleteSpeaker);
 
 router.get("/getAllContactUs", getAllContactUs);
 router.post("/addContactUs", addContactUs);
+
+router.get("/getAllRegister", getAllRegister);
+router.post("/addRegister", addRegister);
 
 module.exports = router;

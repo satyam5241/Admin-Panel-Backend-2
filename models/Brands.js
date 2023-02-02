@@ -1,7 +1,7 @@
 const { query } = require("../database/database.js");
 
 exports.getAllBrandsQuery = async () => {
-  const data = await query(`SELECT * FROM brands`);
+  const data = await query(`SELECT * FROM allBrands`);
 
   return {
     data,
@@ -9,7 +9,7 @@ exports.getAllBrandsQuery = async () => {
 };
 
 exports.getBrandByIdQuery = async (id) => {
-  const data = await query(`SELECT * FROM brands WHERE id=${id}`);
+  const data = await query(`SELECT * FROM allBrands WHERE id=${id}`);
 
   return {
     data,
@@ -18,7 +18,7 @@ exports.getBrandByIdQuery = async (id) => {
 
 exports.addBrandQuery = async (data, path) => {
   const result = await query(
-    `INSERT INTO brands(image, name) VALUES('${path}', '${data.name}')`
+    `INSERT INTO allBrands(image, name, category, link, description) VALUES('${path}', '${data.name}', '${data.category}', '${data.link}', '${data.description}')`
   );
 
   let message = "Something went wrong when adding brand";
@@ -33,7 +33,7 @@ exports.addBrandQuery = async (data, path) => {
 
 exports.updateBrandQuery = async (data, path) => {
   const result = await query(
-    `UPDATE brands SET image="${path}", name="${data.name}" WHERE id=${data.id}`
+    `UPDATE allBrands SET image="${path}", name="${data.name}", category="${data.category}", link="${data.link}", description="${data.description}" WHERE id=${data.id}`
   );
 
   let message = "Something went wrong when updating brand";
@@ -48,7 +48,7 @@ exports.updateBrandQuery = async (data, path) => {
 };
 
 exports.deleteBrandQuery = async (id) => {
-  const result = await query(`DELETE FROM brands WHERE id=${id}`);
+  const result = await query(`DELETE FROM allBrands WHERE id=${id}`);
 
   let message = "Something went wrong when deleting brand";
 

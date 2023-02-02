@@ -1,11 +1,13 @@
 const express = require("express");
+const mysql = require("mysql");
+const db = require("./mysql_connect");
+const query = require("./database/database");
 const routes = require("./routes/routes.js");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
 
 const app = express();
-const port = process.env.PORT;
 
 const allowedExt = [
   ".js",
@@ -61,6 +63,6 @@ app.get("*", function (req, res, next) {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at Port: ${port}`);
+app.listen(8000, () => {
+  console.log(`Example app listening at Port: ${8000}`);
 });

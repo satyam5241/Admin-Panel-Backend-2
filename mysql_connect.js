@@ -6,7 +6,7 @@ const db = mysql.createPool({
   user: "admin",
   password: "sourceinnovate",
   port: 3306,
-  database: "admindb2",
+  database: "admindb2",  
   sslmode: true,
   charset: "utf8mb4",
   pool: {
